@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive">所有容器</div>
+        <div style="font-size: 25px; font-family: '宋体', cursive">停止的容器</div>
         <br>
         <el-table
             :data="tableData"
@@ -9,7 +9,7 @@
             :max-height="900">
             <el-table-column
                 label="编号"
-                width="55">
+                width="55px">
                 <template slot-scope="scope">
                     {{ scope.row.id }}
                 </template>
@@ -23,9 +23,9 @@
 
             <el-table-column label="容器状态" prop="state"></el-table-column>
 
-<!--            <el-table-column label="状态描述" prop="status"></el-table-column>-->
+            <!--            <el-table-column label="状态描述" prop="status"></el-table-column>-->
 
-<!--            <el-table-column label="日志目录" prop="logPath"></el-table-column>-->
+            <!--            <el-table-column label="日志目录" prop="logPath"></el-table-column>-->
 
             <el-table-column label="内部端口" prop="privatePort"></el-table-column>
 
@@ -40,20 +40,29 @@
                     <el-input v-model="search" placeholder="请输入关键字搜索"/>
                 </template>
                 <template slot-scope="scope">
-                    <span v-if="scope.row.state==='Exited'">
-                        <el-button
-                            size="small"
-                            type="success"
-                            @click="handleStart(scope.$index, scope.row)">开启
-                        </el-button>
-                    </span>
-                    <span v-if="scope.row.state==='Running'">
-                        <el-button
-                            size="small"
-                            type="info"
-                            @click="handleStop(scope.$index, scope.row)">停止
-                        </el-button>
-                    </span>
+                    <el-row>
+                        <el-col :span="12">
+                            <el-button
+                                size="small"
+                                type="success"
+                                @click="handleStart(scope.$index, scope.row)">开启
+                            </el-button>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-popconfirm
+                                confirm-button-text='好的'
+                                cancel-button-text='不用了'
+                                icon="el-icon-info"
+                                icon-color="red"
+                                title="确定要删除容器吗？"
+                                @confirm="handleDelete(scope.$index, scope.row)">
+                                <el-button size="small"
+                                           type="danger"
+                                           slot="reference">删除
+                                </el-button>
+                            </el-popconfirm>
+                        </el-col>
+                    </el-row>
                 </template>
             </el-table-column>
         </el-table>
@@ -64,7 +73,7 @@
 import axios from "axios";
 
 export default {
-    name: "Containers",
+    name: "ExitedContainers",
     data() {
         return {
             tableData: [],
@@ -73,21 +82,8 @@ export default {
     },
     methods: {
         findAllTableData() {
-            axios.get("http://127.0.0.1:9000/sandbox/allContainers").then(res => {
+            axios.get("http://127.0.0.1:9000/sandbox/exitedContainers").then(res => {
                 this.tableData = res.data.data;
-            });
-        },
-        handleStop(index, row) {
-            axios.post("http://127.0.0.1:9000/sandbox/stopContainer", row).then(res => {
-                if (res.data && res.data.status) {
-                    this.$message({
-                        message: "停止容器成功",
-                        type: 'success'
-                    });
-                } else {
-                    this.$message.error("停止容器失败");
-                }
-                this.findAllTableData();
             });
         },
         handleStart(index, row) {
@@ -99,6 +95,19 @@ export default {
                     });
                 } else {
                     this.$message.error("开启容器失败");
+                }
+                this.findAllTableData();
+            });
+        },
+        handleDelete(index, row) {
+            axios.post("http://127.0.0.1:9000/sandbox/removeContainer", row).then(res => {
+                if (res.data && res.data.status) {
+                    this.$message({
+                        message: "删除容器成功",
+                        type: 'success'
+                    });
+                } else {
+                    this.$message.error("删除容器失败");
                 }
                 this.findAllTableData();
             });

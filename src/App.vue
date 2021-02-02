@@ -1,75 +1,73 @@
 <template>
     <div id="app">
-        <div>
-            <el-container style="height: 900px;">
-                <el-aside width="200px" style="background-color: #ffffff">
-                    <el-menu :default-openeds="['/images','/containers']" :default-active="activeIndex"
-                             @select="handleSelect">
-                        <el-menu-item index="/index">
-                            <template slot="title"><i class="el-icon-magic-stick"></i>
-                                <span style="font-size: 18px">项目简介</span>
-                            </template>
-                        </el-menu-item>
-                        <el-menu-item index="/hosts">
-                            <template slot="title"><i class="el-icon-monitor"></i>
-                                <span style="font-size: 18px">主机管理</span>
-                            </template>
-                        </el-menu-item>
-                        <el-submenu index="3">
-                            <template slot="title"><i class="el-icon-message"></i>
-                                <span style="font-size: 18px">蜜罐管理</span>
-                            </template>
-                            <el-menu-item-group>
-                                <el-menu-item index="3-1">
-                                    <span style="font-size: 18px">查看镜像</span>
-                                </el-menu-item>
-                                <el-menu-item index="3-2">
-                                    <span style="font-size: 18px">拉取镜像</span>
-                                </el-menu-item>
-                            </el-menu-item-group>
-                        </el-submenu>
-                        <el-submenu index="4">
-                            <template slot="title"><i class="el-icon-menu"></i>
-                                <span style="font-size: 18px">容器管理</span>
-                            </template>
-                            <el-menu-item-group>
-                                <el-menu-item index="/containers">
-                                    <span style="font-size: 18px">所有容器</span>
-                                </el-menu-item>
-                                <el-menu-item index="4-2">
-                                    <span style="font-size: 18px">运行的容器</span>
-                                </el-menu-item>
-                                <el-menu-item index="4-3">
-                                    <span style="font-size: 18px">停止的容器</span>
-                                </el-menu-item>
-                                <el-menu-item index="4-4">
-                                    <span style="font-size: 18px">创建容器</span>
-                                </el-menu-item>
-                                <el-menu-item index="4-5">
-                                    <span style="font-size: 18px">删除容器</span>
-                                </el-menu-item>
-                            </el-menu-item-group>
-                        </el-submenu>
-                        <el-submenu index="/logs" style="font-size: 20px">
-                            <template slot="title"><i class="el-icon-setting"></i>
-                                <span style="font-size: 18px">日志管理</span>
-                            </template>
-                            <el-menu-item-group>
-                                <el-menu-item index="5-1">
-                                    <span style="font-size: 18px">所有日志</span>
-                                </el-menu-item>
-                                <el-menu-item index="5-2">
-                                    <span style="font-size: 18px">筛选日志</span>
-                                </el-menu-item>
-                            </el-menu-item-group>
-                        </el-submenu>
-                    </el-menu>
-                </el-aside>
-                <el-main>
-                    <router-view></router-view>
-                </el-main>
-            </el-container>
-        </div>
+        <el-container>
+            <el-aside width="230px" style="background-color: #ffffff">
+                <el-menu :default-openeds="['4', '5']" :default-active="activeIndex"
+                         @select="handleSelect">
+                    <el-menu-item index="/index">
+                        <template slot="title"><i class="el-icon-magic-stick"></i>
+                            <span class="sideFont">项目简介</span>
+                        </template>
+                    </el-menu-item>
+                    <el-menu-item index="/hosts">
+                        <template slot="title"><i class="el-icon-monitor"></i>
+                            <span class="sideFont">主机管理</span>
+                        </template>
+                    </el-menu-item>
+                    <el-submenu index="3">
+                        <template slot="title"><i class="el-icon-message"></i>
+                            <span class="sideFont">蜜罐镜像管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="3-1">
+                                <span class="subSideFont">查看镜像</span>
+                            </el-menu-item>
+                            <el-menu-item index="3-2">
+                                <span class="subSideFont">拉取镜像</span>
+                            </el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="4">
+                        <template slot="title"><i class="el-icon-menu"></i>
+                            <span class="sideFont">容器管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="/containers">
+                                <span class="subSideFont">所有容器</span>
+                            </el-menu-item>
+                            <el-menu-item index="/runningContainers">
+                                <span class="subSideFont">运行的容器</span>
+                            </el-menu-item>
+                            <el-menu-item index="/exitedContainers">
+                                <span class="subSideFont">停止的容器</span>
+                            </el-menu-item>
+                            <el-menu-item index="/createContainer">
+                                <span class="subSideFont">创建容器</span>
+                            </el-menu-item>
+                            <el-menu-item index="4-5">
+                                <span class="subSideFont">被删除的容器</span>
+                            </el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="5">
+                        <template slot="title"><i class="el-icon-setting"></i>
+                            <span class="sideFont">日志管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="5-1">
+                                <span class="subSideFont">所有日志</span>
+                            </el-menu-item>
+                            <el-menu-item index="5-2">
+                                <span class="subSideFont">筛选日志</span>
+                            </el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
+        </el-container>
     </div>
 </template>
 
@@ -92,9 +90,22 @@ export default {
 }
 </script>
 
-<style>
-.el-table td, .el-table th {
-    text-align: center;
-    font-size: 15px;
-}
+<style scoped>
+    .el-table td, .el-table th {
+        text-align: center;
+        font-size: 15px;
+        font-family: "宋体", cursive;
+    }
+    .sideFont {
+        font-size: 21px;
+        font-family: "宋体", cursive;
+    }
+    .subSideFont {
+        font-size: 19px;
+        font-family: "宋体", cursive;
+    }
+    .el-container {
+        padding: 0;
+        margin: 0;
+    }
 </style>

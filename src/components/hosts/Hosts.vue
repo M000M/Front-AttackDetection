@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="font-size: 25px;">主机管理</div>
+        <div style="font-size: 25px; font-family: '宋体', cursive">主机管理</div>
         <br>
         <el-table
             :data="tableData"
@@ -22,7 +22,7 @@
             <el-table-column label="操作" width="300px">
                 <template slot-scope="scope">
                     <el-row>
-                        <el-col :span="10" :offset="2">
+                        <el-col :span="8">
                             <span v-if="scope.row.status===1">
                                 <el-popconfirm
                                     confirm-button-text='确定'
@@ -54,7 +54,16 @@
                                 </el-popconfirm>
                             </span>
                         </el-col>
-                        <el-col :span="12">
+                        <el-col :span="8">
+                            <span>
+                                <el-button @click="handleEdit(scope.$index, scope.row)"
+                                    size="small"
+                                    type="primary"
+                                    round>编辑
+                                </el-button>
+                            </span>
+                        </el-col>
+                        <el-col :span="8">
                             <span>
                                 <el-popconfirm
                                     confirm-button-text='确定'
@@ -77,13 +86,9 @@
         </el-table>
         <br>
         <el-row>
-            <el-col :span="4" :offset="20">
+            <el-col :span="1" :offset="23">
                 <div style="position: center">
-                    <el-row>
-                        <el-col :span="10" :offset="2">
-                            <el-button type="primary" @click="dialogFormVisible = true">添加</el-button>
-                        </el-col>
-                    </el-row>
+                    <el-button type="primary" @click="dialogFormVisible = true">添加</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -98,8 +103,23 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button @click="dialogFormVisible = false;hostForm = {}">取 消</el-button>
                 <el-button type="primary" @click="addHost('hostForm')">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        <el-dialog title="修改端口" :visible.sync="editPortVisible">
+            <el-form :model="hostForm" :rules="rules" ref="editHostForm">
+                <el-form-item label="IP地址" :label-width="formLabelWidth" prop="ip">
+                    <el-input v-model="hostForm.ip" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="微服务端口" :label-width="formLabelWidth" prop="port">
+                    <el-input v-model="hostForm.port"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="editPortVisible = false;hostForm = {}">取 消</el-button>
+                <el-button type="primary" @click="updateHost('editHostForm')">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -138,6 +158,7 @@ export default {
         return {
             tableData: [],
             dialogFormVisible: false,
+            editPortVisible: false,
             hostForm: {
                 ip: "",
                 port: "",
@@ -156,6 +177,44 @@ export default {
         }
     },
     methods: {
+        updateHost(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    for (var i=0; i < this.tableData.length; i++) {
+                        if (this.tableData[i].port === Number(this.hostForm.port)) {
+                            if (this.tableData[i].ip === this.hostForm.ip) {
+                                this.hostForm = {};
+                                this.editPortVisible = false;
+                                return false;
+                            }
+                            alert("端口 " + this.hostForm.port +" 已经被主机 " + this.tableData[i].ip + " 占用，请重试！");
+                            this.hostForm = {};
+                            this.editPortVisible = false;
+                            this.findAllTableData();
+                            return false;
+                        }
+                    }
+                    axios.post("http://127.0.0.1:9000/hosts/update", this.hostForm).then(res => {
+                        if (res.data.status) {
+                            this.$message({
+                                message: "修改主机成功",
+                                type: 'success'
+                            })
+                            this.findAllTableData();
+                        } else {
+                            this.$message.error("修改主机失败");
+                        }
+                    });
+                    this.hostForm = {};
+                    this.editPortVisible = false;
+                } else {
+                    alert("端口格式错误，请重新输入！");
+                    this.$refs[formName].resetFields();
+                    this.editPortVisible = false;
+                    return false;
+                }
+            })
+        },
         addHost(formName) { // 添加主机
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -166,21 +225,32 @@ export default {
                             this.dialogFormVisible = false;
                             return false;
                         }
-                    }
-                    alert("确定吗？");
-                    axios.post("http://127.0.0.1:9000/hosts/add", this.hostForm).then(res => {
-                        if (res.data.status) {
-                            this.$message({
-                                message: "添加主机成功",
-                                type: 'success'
-                            })
-                            this.findAllTableData();
-                        } else {
-                            this.$message.error("添加主机失败");
+                        if (this.tableData[i].port === Number(this.hostForm.port)) {
+                            alert("端口 " + this.hostForm.port +" 已经被主机 " + this.tableData[i].ip + " 占用，请重试！");
+                            this.$refs[formName].resetFields();
+                            this.dialogFormVisible = false;
+                            return false;
                         }
-                    })
-                    this.hostForm = {};
-                    this.dialogFormVisible = false;
+                    }
+                    if (confirm("确定吗？")) {
+                        axios.post("http://127.0.0.1:9000/hosts/add", this.hostForm).then(res => {
+                            if (res.data.status) {
+                                this.$message({
+                                    message: "添加主机成功",
+                                    type: 'success'
+                                })
+                                this.findAllTableData();
+                            } else {
+                                this.$message.error("添加主机失败");
+                            }
+                        })
+                        this.hostForm = {};
+                        this.dialogFormVisible = false;
+                    } else {
+                        this.hostForm = {};
+                        this.dialogFormVisible = false;
+                        return false;
+                    }
                 } else {
                     alert("IP地址或端口格式错误，请重新输入！");
                     this.$refs[formName].resetFields();
@@ -188,6 +258,10 @@ export default {
                     return false;
                 }
             })
+        },
+        handleEdit(index, row) {
+            this.editPortVisible = true;
+            this.hostForm = row;
         },
         handleShutdown(index, row) { // 关闭主机
             row.status = 0;
