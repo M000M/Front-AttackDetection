@@ -14,8 +14,8 @@
 
             <el-table-column label="主机状态" prop="status">
                 <template slot-scope="scope">
-                    <div v-if="scope.row.status===1">运 行</div>
-                    <div v-if="scope.row.status===0">关 闭</div>
+                    <div v-if="scope.row.status===1" class="status-success"></div>
+                    <div v-if="scope.row.status===0" class="status-danger"></div>
                 </template>
             </el-table-column>
 
@@ -162,7 +162,7 @@ export default {
             hostForm: {
                 ip: "",
                 port: "",
-                status: 1,
+                status: true,
                 state: 1
             },
             formLabelWidth: '120px',
@@ -173,7 +173,8 @@ export default {
                 port: [
                     {validator:portValidator, trigger: 'blur'}
                 ]
-            }
+            },
+            switchValue: ""
         }
     },
     methods: {
@@ -270,12 +271,12 @@ export default {
                     this.$message({
                         message: "关闭主机成功",
                         type: 'success'
-                    })
+                    });
                     this.findAllTableData();
                 } else {
                     this.$message.error("关闭主机出现错误");
                 }
-            })
+            });
         },
         handleTurnOn(index, row) { // 打开主机
             row.status = 1;
@@ -305,6 +306,9 @@ export default {
                 }
             })
         },
+        handleSwitch() {
+            console.log(this.switchValue);
+        },
         findAllTableData() {
             axios.get("http://127.0.0.1:9000/hosts/list").then(res => {
                 this.tableData = res.data.data;
@@ -319,8 +323,24 @@ export default {
 </script>
 
 <style>
-.el-table td, .el-table th {
-    text-align: center;
-    font-size: 15px;
-}
+    .el-table td, .el-table th {
+        text-align: center;
+        font-size: 15px;
+    }
+    .status-success{
+        display:inline-block;
+        width: 10px;
+        height:10px;
+        background: limegreen;
+        border-radius:50%;
+    }
+    .status-danger{
+        display:inline-block;
+        width: 10px;
+        height:10px;
+        background: orangered;
+        border-radius:50%;
+    }
+
+
 </style>

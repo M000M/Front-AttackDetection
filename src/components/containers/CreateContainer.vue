@@ -185,6 +185,7 @@ export default {
                 }
             });
             this.containerForm = {};
+            this.dialogVisible = false;
         }
     },
     created() {

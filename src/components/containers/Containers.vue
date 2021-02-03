@@ -21,7 +21,12 @@
 
             <el-table-column label="镜像名称" prop="image"></el-table-column>
 
-            <el-table-column label="容器状态" prop="state"></el-table-column>
+            <el-table-column label="容器状态" prop="state">
+                <template slot-scope="scope">
+                    <div v-if="scope.row.state==='Running'" class="status-success"></div>
+                    <div v-if="scope.row.state==='Exited'" class="status-danger"></div>
+                </template>
+            </el-table-column>
 
 <!--            <el-table-column label="状态描述" prop="status"></el-table-column>-->
 
