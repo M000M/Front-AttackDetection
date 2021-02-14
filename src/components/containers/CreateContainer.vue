@@ -4,7 +4,7 @@
 
         <el-container>
             <el-main>
-                <el-form :model="containerForm" label-width="20%" :rules="rules" ref="containerForm">
+                <el-form :model="containerForm" label-width="200px" :rules="rules" ref="containerForm">
                     <el-row>
                         <el-col :span="11" :offset="4">
                             <el-form-item label="容器名称" prop="name">

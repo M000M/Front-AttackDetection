@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive">所有日志</div>
+        <div style="font-size: 25px; font-family: '宋体', cursive">检测结果</div>
         <br>
 
         <el-table
@@ -16,21 +16,17 @@
                 </template>
             </el-table-column>
 
-            <el-table-column label="容器名" prop="name"></el-table-column>
-
-            <el-table-column label="宿主机" prop="host"></el-table-column>
-
             <el-table-column label="src_ip" prop="srcIp"></el-table-column>
 
             <el-table-column label="src_port" prop="srcPort"></el-table-column>
 
-            <el-table-column label="dest_port" prop="destPort"></el-table-column>
+<!--            <el-table-column label="dest_port" prop="destPort"></el-table-column>-->
 
-            <el-table-column label="command" prop="command"></el-table-column>
+            <el-table-column label="执行的命令" prop="command"></el-table-column>
 
-            <el-table-column label="start_time" prop="startTime"></el-table-column>
+            <el-table-column label="可能的攻击类型" prop="startTime"></el-table-column>
 
-            <el-table-column label="stop_time" prop="stopTime"></el-table-column>
+            <el-table-column label="攻击时间" prop="stopTime"></el-table-column>
         </el-table>
     </div>
 </template>

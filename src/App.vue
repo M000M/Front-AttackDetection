@@ -44,9 +44,6 @@
                             <el-menu-item index="/createContainer">
                                 <span class="subSideFont">创建容器</span>
                             </el-menu-item>
-                            <el-menu-item index="4-5">
-                                <span class="subSideFont">被删除的容器</span>
-                            </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="5">
@@ -54,11 +51,11 @@
                             <span class="sideFont">日志管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="5-1">
+                            <el-menu-item index="/logs">
                                 <span class="subSideFont">所有日志</span>
                             </el-menu-item>
-                            <el-menu-item index="5-2">
-                                <span class="subSideFont">筛选日志</span>
+                            <el-menu-item index="/detectResult">
+                                <span class="subSideFont">检测结果</span>
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>

@@ -8,6 +8,7 @@ import Logs from "@/components/logs/Logs";
 import RunningContainers from "@/components/containers/RunningContainers";
 import ExitedContainers from "@/components/containers/ExitedContainers";
 import CreateContainer from "@/components/containers/CreateContainer";
+import DetectResult from "@/components/logs/DetectResult";
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,7 @@ const routes = [
     {path: "/exitedContainers", component: ExitedContainers},
     {path: "/createContainer", component: CreateContainer},
     {path: "/logs", component: Logs},
+    {path: "/detectResult", component: DetectResult},
 ]
 
 const router = new VueRouter({

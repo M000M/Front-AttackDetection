@@ -23,8 +23,14 @@
 
             <el-table-column label="容器状态" prop="state">
                 <template slot-scope="scope">
-                    <div v-if="scope.row.state==='Running'" class="status-success"></div>
-                    <div v-if="scope.row.state==='Exited'" class="status-danger"></div>
+                    <el-row>
+                        <el-col :span="8">
+                            <div v-if="scope.row.state==='Running'" class="status-success"></div>
+                        </el-col>
+                        <el-col :span="8" :offset="8">
+                            <div v-if="scope.row.state==='Exited'" class="status-danger"></div>
+                        </el-col>
+                    </el-row>
                 </template>
             </el-table-column>
 
