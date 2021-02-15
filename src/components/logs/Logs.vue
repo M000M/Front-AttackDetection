@@ -8,9 +8,9 @@
             style="width: 100%"
             border
             :max-height="900">
-            <el-table-column label="remoteAddr" prop="remoteAddr"></el-table-column>
+            <el-table-column label="remote_ip" prop="remoteAddr"></el-table-column>
 
-            <el-table-column label="logTimestamp" prop="logTimestamp"></el-table-column>
+            <el-table-column label="access_time" prop="accessTime"></el-table-column>
 
             <el-table-column label="user" prop="user"></el-table-column>
 
