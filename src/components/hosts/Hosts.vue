@@ -19,51 +19,54 @@
                 </template>
             </el-table-column>
 
-            <el-table-column label="操作" width="300px">
+            <el-table-column label="开/关" width="150px">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.status===1">
+                        <el-popconfirm
+                            confirm-button-text='确定'
+                            cancel-button-text='No'
+                            icon="el-icon-info"
+                            icon-color="red"
+                            title="确定要关闭主机吗？"
+                            @confirm="handleShutdown(scope.$index, scope.row)">
+                            <el-button size="small"
+                                       type="success"
+                                       round
+                                       slot="reference">关闭
+                            </el-button>
+                        </el-popconfirm>
+                    </span>
+                    <span v-if="scope.row.status===0">
+                        <el-popconfirm
+                            confirm-button-text='确定'
+                            cancel-button-text='No'
+                            icon="el-icon-info"
+                            icon-color="red"
+                            title="确定要开启主机吗？"
+                            @confirm="handleTurnOn(scope.$index, scope.row)">
+                            <el-button size="small"
+                                       round
+                                       type="info"
+                                       slot="reference">开启
+                            </el-button>
+                        </el-popconfirm>
+                    </span>
+                </template>
+            </el-table-column>
+
+            <el-table-column label="操作" width="200px">
                 <template slot-scope="scope">
                     <el-row>
-                        <el-col :span="8">
-                            <span v-if="scope.row.status===1">
-                                <el-popconfirm
-                                    confirm-button-text='确定'
-                                    cancel-button-text='No'
-                                    icon="el-icon-info"
-                                    icon-color="red"
-                                    title="确定要关闭主机吗？"
-                                    @confirm="handleShutdown(scope.$index, scope.row)">
-                                    <el-button size="small"
-                                               type="success"
-                                               round
-                                               slot="reference">关闭
-                                    </el-button>
-                                </el-popconfirm>
-                            </span>
-                            <span v-if="scope.row.status===0">
-                                <el-popconfirm
-                                    confirm-button-text='确定'
-                                    cancel-button-text='No'
-                                    icon="el-icon-info"
-                                    icon-color="red"
-                                    title="确定要开启主机吗？"
-                                    @confirm="handleTurnOn(scope.$index, scope.row)">
-                                    <el-button size="small"
-                                               round
-                                               type="info"
-                                               slot="reference">开启
-                                    </el-button>
-                                </el-popconfirm>
-                            </span>
-                        </el-col>
-                        <el-col :span="8">
+                        <el-col :span="12">
                             <span>
                                 <el-button @click="handleEdit(scope.$index, scope.row)"
-                                    size="small"
+                                    size="mini"
                                     type="primary"
                                     round>编辑
                                 </el-button>
                             </span>
                         </el-col>
-                        <el-col :span="8">
+                        <el-col :span="9">
                             <span>
                                 <el-popconfirm
                                     confirm-button-text='确定'
@@ -72,7 +75,7 @@
                                     icon-color="red"
                                     title="确定要删除主机吗？"
                                     @confirm="handleDelete(scope.$index, scope.row)">
-                                    <el-button size="small"
+                                    <el-button size="mini"
                                                type="danger"
                                                round
                                                slot="reference">删除

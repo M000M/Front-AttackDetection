@@ -8,19 +8,19 @@
             style="width: 100%"
             border
             :max-height="900">
-            <el-table-column label="remote_ip" prop="remoteAddr"></el-table-column>
+            <el-table-column label="remote ip" prop="remoteAddr"></el-table-column>
 
-            <el-table-column label="access_time" prop="accessTime"></el-table-column>
+            <el-table-column label="access time" prop="accessTime"></el-table-column>
 
             <el-table-column label="user" prop="user"></el-table-column>
 
             <el-table-column label="param" prop="param"></el-table-column>
 
-            <el-table-column label="httpStatus" prop="httpStatus"></el-table-column>
+            <el-table-column label="http status" prop="httpStatus"></el-table-column>
 
             <el-table-column label="uri" prop="uri"></el-table-column>
 
-            <el-table-column label="bodyBytesSent" prop="bodyBytesSent"></el-table-column>
+            <el-table-column label="bytes sent" prop="bodyBytesSent"></el-table-column>
         </el-table>
     </div>
 </template>
