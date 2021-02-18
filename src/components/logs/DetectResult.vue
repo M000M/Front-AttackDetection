@@ -1,42 +1,39 @@
 <template>
-    <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive">检测结果</div>
-        <br>
-
-        <el-table
-            :data="tableData"
-            style="width: 100%"
-            border
-            :max-height="900">
-            <el-table-column
-                label="编号"
-                width="55">
-                <template slot-scope="scope">
-                    {{ scope.row.id }}
-                </template>
-            </el-table-column>
-
-            <el-table-column label="src_ip" prop="srcIp"></el-table-column>
-
-            <el-table-column label="src_port" prop="srcPort"></el-table-column>
-
-<!--            <el-table-column label="dest_port" prop="destPort"></el-table-column>-->
-
-            <el-table-column label="执行的命令" prop="command"></el-table-column>
-
-            <el-table-column label="可能的攻击类型" prop="startTime"></el-table-column>
-
-            <el-table-column label="攻击时间" prop="stopTime"></el-table-column>
-        </el-table>
+    <div id="chartColumn" style="width: 100%; height: 400px;">
     </div>
 </template>
 
 <script>
+import echarts from 'echarts'
 export default {
-    name: "Logs"
+    data(){
+        return {
+            chartColumn: null
+        }
+    },
+    mounted() {
+        this.drawLine();
+    },
+    methods: {
+        drawLine(){
+            this.chartColumn = echarts.init(document.getElementById('chartColumn'));
+
+            this.chartColumn.setOption({
+                title: { text: 'Column Chart' },
+                tooltip: {},
+                xAxis: {
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: [820, 932, 901, 2, 1290, 1330, 1320],
+                    type: 'line'
+                }]
+            });
+        }
+    }
 }
 </script>
-
-<style scoped>
-
-</style>
