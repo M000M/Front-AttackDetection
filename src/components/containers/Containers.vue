@@ -84,7 +84,7 @@ export default {
         },
         handleStop(index, row) {
             axios.post("http://127.0.0.1:9000/sandbox/stopContainer", row).then(res => {
-                if (res.data && res.data.status) {
+                if (res.data && res.data.data) {
                     this.$message({
                         message: "停止容器成功",
                         type: 'success'
@@ -97,7 +97,7 @@ export default {
         },
         handleStart(index, row) {
             axios.post("http://127.0.0.1:9000/sandbox/startContainer", row).then(res => {
-                if (res.data && res.data.status) {
+                if (res.data && res.data.data) {
                     this.$message({
                         message: "开启容器成功",
                         type: 'success'

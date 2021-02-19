@@ -99,7 +99,7 @@ export default {
         },
         handleStart(index, row) {
             axios.post("http://127.0.0.1:9000/sandbox/startContainer", row).then(res => {
-                if (res.data && res.data.status) {
+                if (res.data && res.data.data) {
                     this.$message({
                         message: "开启容器成功",
                         type: 'success'
@@ -112,7 +112,8 @@ export default {
         },
         handleDelete(index, row) {
             axios.post("http://127.0.0.1:9000/sandbox/removeContainer", row).then(res => {
-                if (res.data && res.data.status) {
+                console.log(res.data);
+                if (res.data && res.data.data) {
                     this.$message({
                         message: "删除容器成功",
                         type: 'success'

@@ -78,9 +78,7 @@ export default {
         }
     },
     methods: {
-        handleSelect(key, keyPath) {
-            console.log(key);
-            console.log(keyPath);
+        handleSelect(key) {
             this.$router.push(key);
         }
     }
