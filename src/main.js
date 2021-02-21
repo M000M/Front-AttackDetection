@@ -6,8 +6,11 @@ import router from "@/router";
 import axios from "axios";
 import echarts from 'echarts';
 
+
 Vue.use(ElementUI, axios, echarts)
 Vue.config.productionTip = false
+
+require('echarts/map/js/world')
 
 new Vue({
   router,
