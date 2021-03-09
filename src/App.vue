@@ -57,7 +57,7 @@
                             <el-menu-item index="/detectResult">
                                 <span class="subSideFont">检测结果</span>
                             </el-menu-item>
-                            <el-menu-item index="/location">
+                            <el-menu-item index="/worldLocation">
                                 <span class="subSideFont">IP定位</span>
                             </el-menu-item>
                             <el-menu-item index="/chinaLocation">

@@ -41,6 +41,7 @@ export default {
         findAllTableData() {
             axios.get("http://127.0.0.1:9000/es/getAll").then(res => {
                 this.logData = res.data.data;
+                console.log(res.data.data)
             });
         },
 

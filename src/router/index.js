@@ -9,7 +9,7 @@ import RunningContainers from "@/components/containers/RunningContainers";
 import ExitedContainers from "@/components/containers/ExitedContainers";
 import CreateContainer from "@/components/containers/CreateContainer";
 import DetectResult from "@/components/logs/DetectResult";
-import Location from "@/components/logs/Location";
+import WorldLocation from "@/components/logs/WorldLocation";
 import ChinaLocation from "@/components/logs/ChinaLocation";
 
 Vue.use(VueRouter);
@@ -24,7 +24,7 @@ const routes = [
     {path: "/createContainer", component: CreateContainer},
     {path: "/logs", component: Logs},
     {path: "/detectResult", component: DetectResult},
-    {path: "/location", component: Location},
+    {path: "/worldLocation", component: WorldLocation},
     {path: "/chinaLocation", component: ChinaLocation},
 ]
 
