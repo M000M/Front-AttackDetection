@@ -1,8 +1,5 @@
 <template>
     <div>
-<!--        <div style="font-size: 25px; font-family: '宋体', cursive">所有日志</div>-->
-<!--        <br>-->
-
         <el-table
             :data="logData"
             style="width: 100%"
@@ -53,7 +50,7 @@ export default {
     },
 
     mounted() {
-        this.intervalFetchData();
+        // this.intervalFetchData();
     },
 
     created() {
@@ -62,6 +59,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

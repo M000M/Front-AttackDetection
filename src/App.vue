@@ -51,9 +51,19 @@
                             <span class="sideFont">日志管理</span>
                         </template>
                         <el-menu-item-group>
+                            <el-menu-item index="/realTimeLogs">
+                                <span class="subSideFont">实时日志</span>
+                            </el-menu-item>
                             <el-menu-item index="/logs">
                                 <span class="subSideFont">所有日志</span>
                             </el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="6">
+                        <template slot="title"><i class="el-icon-setting"></i>
+                            <span class="sideFont">检测结果</span>
+                        </template>
+                        <el-menu-item-group>
                             <el-menu-item index="/detectResult">
                                 <span class="subSideFont">检测结果</span>
                             </el-menu-item>

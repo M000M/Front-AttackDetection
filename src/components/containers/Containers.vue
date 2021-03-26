@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive">所有容器</div>
-        <br>
         <el-table
             :data="tableData"
             style="width: 100%"
