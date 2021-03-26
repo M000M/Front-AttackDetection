@@ -1,64 +1,77 @@
 <template>
-    <div>
+    <div class="app">
         <el-table
             :data="logData"
             style="width: 100%"
             border
+            :header-cell-style="{'text-align':'center'}"
+            :cell-style="{'text-align':'left'}"
             :max-height="900">
-            <el-table-column label="remote ip" prop="remoteAddr"></el-table-column>
-
-            <el-table-column label="access time" prop="accessTime"></el-table-column>
-
-            <el-table-column label="user" prop="user"></el-table-column>
-
-            <el-table-column label="param" prop="param"></el-table-column>
-
-            <el-table-column label="http status" prop="httpStatus"></el-table-column>
-
-            <el-table-column label="uri" prop="uri"></el-table-column>
-
-            <el-table-column label="bytes sent" prop="bodyBytesSent"></el-table-column>
+            <el-table-column label="时间" prop="time" width="150px"></el-table-column>
+            <el-table-column label="日志" prop="log"></el-table-column>
         </el-table>
+        <br>
+        <div class="tabListPage">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="size"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
+            </el-pagination>
+        </div>
     </div>
 </template>
-
 <script>
 import axios from "axios";
 
 export default {
-    name: "Logs",
-
     data() {
         return {
-            logData: []
+            logData: [],
+            // 默认显示第一条
+            currentPage: 1,
+            total: 0,
+            size: 10,
         }
     },
-
     methods: {
-        findAllTableData() {
-            axios.get("http://127.0.0.1:9000/es/getAll").then(res => {
-                this.logData = res.data.data;
-                console.log(res.data.data)
+        handleSizeChange(val) {
+            // console.log(`每页 ${val} 条`);
+            this.size = val;
+            let start = (this.currentPage - 1) * this.size;
+            this.getLogByPage(start, this.size);
+        },
+        handleCurrentChange(val) {
+            // console.log(`当前页: ${val}`);
+            this.currentPage = val;
+            let start = (this.currentPage - 1) * this.size;
+            this.getLogByPage(start, this.size);
+        },
+
+        getTotal() {
+            axios.get("http://127.0.0.1:9000/es/getTotal").then(res => {
+                this.total = res.data.data;
             });
         },
 
-        intervalFetchData: function () {
-            setInterval(() => {
-                this.findAllTableData();
-            }, 500);
+        getLogByPage(start, size) {
+            axios.get("http://127.0.0.1:9000/es/getLogByPage", {
+                params: {
+                    start: start,
+                    size: size
+                }
+            }).then(res => {
+                this.logData = res.data.data;
+            })
         }
     },
 
-    mounted() {
-        // this.intervalFetchData();
-    },
-
     created() {
-        this.findAllTableData();
+        this.getTotal();
+        this.getLogByPage(0, this.size);
     }
 }
 </script>
-
-<style>
-
-</style>

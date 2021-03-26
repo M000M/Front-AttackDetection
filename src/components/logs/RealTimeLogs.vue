@@ -35,7 +35,7 @@ export default {
             });
             if (this.newTotal > this.total) {
                 this.total = this.newTotal;
-                var size = 20;
+                let size = 20;
                 console.log(this.total);
                 axios.get("http://127.0.0.1:9000/es/getLogByPage", {
                     params: {
