@@ -51,7 +51,7 @@ export default {
         intervalFetchData: function () {
             setInterval(() => {
                 this.getLogByPage();
-            }, 1000);
+            }, 500);
         }
     },
 
