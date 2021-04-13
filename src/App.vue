@@ -2,7 +2,7 @@
     <div id="app">
         <el-container>
             <el-aside width="230px" style="background-color: #ffffff">
-                <el-menu :default-openeds="['4', '5']" :default-active="activeIndex"
+                <el-menu :default-openeds="['3', '4', '5']" :default-active="activeIndex"
                          @select="handleSelect">
                     <el-menu-item index="/index">
                         <template slot="title"><i class="el-icon-magic-stick"></i>
@@ -15,21 +15,8 @@
                         </template>
                     </el-menu-item>
                     <el-submenu index="3">
-                        <template slot="title"><i class="el-icon-message"></i>
-                            <span class="sideFont">蜜罐镜像管理</span>
-                        </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="3-1">
-                                <span class="subSideFont">查看镜像</span>
-                            </el-menu-item>
-                            <el-menu-item index="3-2">
-                                <span class="subSideFont">拉取镜像</span>
-                            </el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="4">
                         <template slot="title"><i class="el-icon-menu"></i>
-                            <span class="sideFont">容器管理</span>
+                            <span class="sideFont">沙盒容器管理</span>
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/containers">
@@ -46,7 +33,7 @@
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-submenu index="5">
+                    <el-submenu index="4">
                         <template slot="title"><i class="el-icon-setting"></i>
                             <span class="sideFont">日志管理</span>
                         </template>
@@ -59,7 +46,7 @@
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-submenu index="6">
+                    <el-submenu index="5">
                         <template slot="title"><i class="el-icon-setting"></i>
                             <span class="sideFont">检测结果</span>
                         </template>

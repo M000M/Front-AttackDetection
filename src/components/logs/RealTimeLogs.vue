@@ -7,7 +7,7 @@
             :header-cell-style="{'text-align':'center'}"
             :cell-style="{'text-align':'left'}"
             :max-height="900">
-            <el-table-column label="时间" prop="time" width="150px"></el-table-column>
+            <el-table-column label="时间" prop="time" width="170px"></el-table-column>
             <el-table-column label="实时日志" prop="log"></el-table-column>
         </el-table>
     </div>
