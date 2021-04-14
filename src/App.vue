@@ -46,6 +46,11 @@
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
+                    <el-menu-item index="/expression">
+                      <template slot="title"><i class="el-icon-monitor"></i>
+                        <span class="sideFont">检测规则管理</span>
+                      </template>
+                    </el-menu-item>
                     <el-submenu index="5">
                         <template slot="title"><i class="el-icon-setting"></i>
                             <span class="sideFont">检测结果</span>
