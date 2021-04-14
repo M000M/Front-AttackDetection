@@ -1,7 +1,6 @@
 <template>
     <div>
         <div style="font-size: 25px; font-family: '宋体', cursive">主机管理</div>
-        <br>
         <el-table
             :data="tableData"
             border
