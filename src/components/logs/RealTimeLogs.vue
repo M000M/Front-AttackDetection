@@ -37,7 +37,7 @@ export default {
                 this.total = this.newTotal;
                 let size = 20;
                 console.log(this.total);
-                axios.get("http://127.0.0.1:9000/es/getLogByPage", {
+                axios.get("http://127.0.0.1:9000/es/getRealTimeLog", {
                     params: {
                         start: this.total - size,
                         size: size

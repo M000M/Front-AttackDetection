@@ -17,6 +17,8 @@
 
             <el-table-column label="描述" prop="desc"></el-table-column>
 
+            <el-table-column label="对应字段" prop="field"></el-table-column>
+
             <el-table-column label="操作" width="200px">
                 <template slot-scope="scope">
                     <el-row>
@@ -58,6 +60,9 @@
                 <el-form-item label="描述" :label-width="formLabelWidth" prop="desc">
                     <el-input v-model="expressionForm.desc" autocomplete="off"></el-input>
                 </el-form-item>
+                <el-form-item label="对应字段" :label-width="formLabelWidth" prop="field">
+                  <el-input v-model="expressionForm.field" autocomplete="off"></el-input>
+                </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false;hostForm = {}">取 消</el-button>
@@ -75,6 +80,9 @@
                 </el-form-item>
                 <el-form-item label="描述" :label-width="formLabelWidth" prop="desc">
                     <el-input v-model="expressionForm.desc"></el-input>
+                </el-form-item>
+                <el-form-item label="对应字段" :label-width="formLabelWidth" prop="field">
+                  <el-input v-model="expressionForm.field"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -99,6 +107,7 @@ export default {
                 expression: "",
                 type: "",
                 desc: "",
+                field: "",
                 state: 1
             },
             formLabelWidth: '120px',
