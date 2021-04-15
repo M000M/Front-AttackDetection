@@ -12,6 +12,8 @@ import WorldLocation from "@/components/logs/WorldLocation";
 import ChinaLocation from "@/components/logs/ChinaLocation";
 import RealTimeLogs from "@/components/logs/RealTimeLogs";
 import Expression from "@/components/regular/Expression";
+import AllResults from "../components/results/AllResults";
+import RealTimeResults from "../components/results/RealTimeResults";
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,8 @@ const routes = [
     {path: "/chinaLocation", component: ChinaLocation},
     {path: "/realTimeLogs", component: RealTimeLogs},
     {path: "/expression", component: Expression},
+    {path: "/allResults", component: AllResults},
+    {path: "/realTimeResults", component: RealTimeResults},
 ]
 
 const router = new VueRouter({

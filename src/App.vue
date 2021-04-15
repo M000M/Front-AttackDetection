@@ -56,10 +56,10 @@
                             <span class="sideFont">检测结果</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="/detectResult">
+                            <el-menu-item index="/realTimeResults">
                                 <span class="subSideFont">实时检测</span>
                             </el-menu-item>
-                            <el-menu-item index="/detectResult">
+                            <el-menu-item index="/allResults">
                               <span class="subSideFont">全部检测</span>
                             </el-menu-item>
                         </el-menu-item-group>
