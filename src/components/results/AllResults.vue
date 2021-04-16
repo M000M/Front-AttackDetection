@@ -11,7 +11,7 @@
 
             <el-table-column label="攻击源" prop="ip"></el-table-column>
 
-            <el-table-column label="命令" prop="command"></el-table-column>
+            <el-table-column label="执行的命令" prop="command"></el-table-column>
 
             <!--      <el-table-column label="新连接" prop="info"></el-table-column>-->
 

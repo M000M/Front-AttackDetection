@@ -1,14 +1,29 @@
 <template>
     <div>
         <el-table
-            :data="logData"
+            :data="resultData"
             style="width: 100%"
             border
             :header-cell-style="{'text-align':'center'}"
-            :cell-style="{'text-align':'left'}"
+            :cell-style="{'text-align':'center'}"
             :max-height="900">
-            <el-table-column label="时间" prop="time" width="170px"></el-table-column>
-            <el-table-column label="实时日志" prop="log"></el-table-column>
+            <el-table-column label="时间" prop="datetime"></el-table-column>
+
+            <el-table-column label="攻击源" prop="ip"></el-table-column>
+
+            <el-table-column label="执行的命令" prop="command"></el-table-column>
+
+            <!--      <el-table-column label="新连接" prop="info"></el-table-column>-->
+
+            <el-table-column label="连接持续时间" prop="connectionTime"></el-table-column>
+
+            <el-table-column label="关键信息" prop="coreInfo"></el-table-column>
+
+            <el-table-column label="结果" prop="status"></el-table-column>
+
+            <!--      <el-table-column label="攻击类型" prop="attackType"></el-table-column>-->
+
+            <el-table-column label="其他" prop="other"></el-table-column>
         </el-table>
     </div>
 </template>
@@ -21,29 +36,29 @@ export default {
 
     data() {
         return {
-            logData: [],
+            resultData: [],
             total: 0,
             newTotal: 0,
+            resultCount: 15
         }
     },
 
     methods: {
 
         getLogByPage() {
-            axios.get("http://127.0.0.1:9000/es/getTotal").then(res => {
+            axios.get("http://127.0.0.1:5000/result/getTotal").then(res => {
                 this.newTotal = res.data.data;
             });
             if (this.newTotal > this.total) {
                 this.total = this.newTotal;
-                let size = 20;
-                console.log(this.total);
-                axios.get("http://127.0.0.1:9000/es/getRealTimeLog", {
+                let size = this.resultCount;
+                axios.get("http://127.0.0.1:5000/result/getResultByPage", {
                     params: {
                         start: this.total - size,
                         size: size
                     }
                 }).then(res => {
-                    this.logData = res.data.data;
+                    this.resultData = res.data.data;
                 });
             }
         },

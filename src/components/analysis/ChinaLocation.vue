@@ -1,6 +1,6 @@
 <template>
     <div class="echarts" style="height: 100%; width: 100%">
-        <div style="height:100%; width:100%" ref="chinaLocation" id="chinaLocation"></div>
+        <div style="height:900px; width:100%" ref="chinaLocation" id="chinaLocation"></div>
     </div>
 </template>
 <script>
@@ -41,7 +41,8 @@ export default {
                     text: ['High', 'Low'],
                     realtime: true,
                     calculable: true,
-                    color: ['red', 'orange', 'yellow', 'cyan', 'lightskyblue']
+                    // color: ['red', 'orange', 'yellow', 'cyan', 'lightskyblue']
+                    color: ['red', 'orange', 'yellow', 'lightskyblue', 'white']
                 },
                 geo: { // 这个是重点配置区
                     map: 'china', // 表示中国地图
@@ -82,7 +83,7 @@ export default {
             })
         },
         findChinaIpLocationList() {
-            axios.get("http://127.0.0.1:9000/location/china").then(res => {
+            axios.get("http://127.0.0.1:5001/location/china").then(res => {
                 this.chinaIpLocationData = res.data.data;
             });
         },
