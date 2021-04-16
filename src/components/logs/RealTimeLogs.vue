@@ -24,6 +24,7 @@ export default {
             logData: [],
             total: 0,
             newTotal: 0,
+            logCount: 10
         }
     },
 
@@ -35,7 +36,7 @@ export default {
             });
             if (this.newTotal > this.total) {
                 this.total = this.newTotal;
-                let size = 20;
+                let size = this.logCount;
                 console.log(this.total);
                 axios.get("http://127.0.0.1:9000/es/getRealTimeLog", {
                     params: {
