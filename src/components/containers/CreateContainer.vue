@@ -148,7 +148,7 @@ export default {
                 value: "honey",
                 label: "honey"
             },{
-                value: "conpot",
+                value: "honeynet/conpot",
                 label: "conpot"
             },{
                 value: "elasticpot",
