@@ -30,7 +30,7 @@ export default {
                 dataRange: {
                     show: true,
                     min: 0,
-                    max: 100,
+                    max: 1000,
                     text: ['High', 'Low'],
                     realtime: true,
                     calculable: true,
