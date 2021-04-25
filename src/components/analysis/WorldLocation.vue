@@ -7,6 +7,7 @@
 import echarts from 'echarts'
 // import * as echarts from 'echarts/dist/echarts'
 import 'echarts/map/js/world.js'
+import axios from "axios";
 
 export default {
     data() {
@@ -15,7 +16,9 @@ export default {
         };
     },
     mounted() {
-        this.initChart();
+        this.intervalFetchData()
+
+        this.initChart()
     },
     methods: {
         initChart() {
@@ -71,19 +74,22 @@ export default {
                     }
                 ]
             });
-        }
+        },
+        findWorldIpLocationList() {
+            axios.get("http://127.0.0.1:5001/location/world").then(res => {
+                this.worldIpLocationData = res.data.data;
+            });
+        },
+        intervalFetchData: function () {
+            setInterval(() => {
+                this.findWorldIpLocationList();
+                this.initChart();
+            }, 1000);
+        },
     },
     created() {
-        this.worldIpLocationData = [{
-            "name": "China",
-            "value": 20
-        },{
-            "name": "United States",
-            "value": 90
-        },{
-            "name": "Japan",
-            "value": 50
-        }]
+        this.findWorldIpLocationList();
+        this.initChart();
     }
 }
 </script>
