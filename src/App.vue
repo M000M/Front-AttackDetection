@@ -60,7 +60,7 @@
                                 <span class="subSideFont">实时检测</span>
                             </el-menu-item>
                             <el-menu-item index="/allResults">
-                              <span class="subSideFont">全部检测</span>
+                              <span class="subSideFont">全部结果</span>
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
