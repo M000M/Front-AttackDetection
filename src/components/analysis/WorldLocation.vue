@@ -1,5 +1,5 @@
 <template>
-    <div class="echarts"  style="height: 100%; width: 100%">
+    <div class="echarts"  style="height: 900px; width: 100%">
         <div style="height: 900px; width: 100%" ref="worldLocation"></div>
     </div>
 </template>
