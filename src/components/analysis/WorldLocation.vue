@@ -1,6 +1,6 @@
 <template>
-    <div class="echarts"  style="height: 900px; width: 100%">
-        <div style="height: 900px; width: 100%" ref="worldLocation"></div>
+    <div class="echarts"  style="height: 800px; width: 100%">
+        <div style="height: 800px; width: 100%" ref="worldLocation"></div>
     </div>
 </template>
 <script>

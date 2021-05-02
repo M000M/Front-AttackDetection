@@ -145,11 +145,11 @@ export default {
                 value: "cowrie/cowrie",
                 label: "cowrie",
             },{
-                value: "honey",
-                label: "honey"
-            },{
                 value: "honeynet/conpot",
                 label: "conpot"
+            },{
+                value: "honey",
+                label: "honey"
             },{
                 value: "elasticpot",
                 label: "elasticpot"
