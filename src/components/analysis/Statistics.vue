@@ -3,8 +3,10 @@
         <div id="chartColumn" style="width: 100%; height: 400px;">
         </div>
         <br>
-        <div>
-            <span style="text-align: center;">统计得到最多的入侵者</span>
+        <br>
+        <br>
+        <div style="text-align: center; font-size: x-large">
+            <span> Top 10 Attackers </span>
         </div>
         <br>
         <div>
@@ -87,7 +89,9 @@ export default {
         intervalFetchData: function () {
             setInterval(() => {
                 this.top10Attack();
-            }, 3000);
+                this.find7Dates();
+                this.find7Data();
+            }, 60000);
         },
     },
     created() {
