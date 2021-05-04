@@ -35,7 +35,7 @@ export default {
                     realtime: true,
                     calculable: true,
                     //color: ['orangered', 'yellow', 'lightskyblue']
-                    color: ['red', 'orange', 'yellow', 'lightskyblue', 'white']
+                    color: ['red', 'orange', 'yellow', 'lightskyblue']
                 },
                 geo: {  // 重点配置区域
                     map: 'world', // 表示世界地图

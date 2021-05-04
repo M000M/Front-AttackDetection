@@ -42,7 +42,7 @@ export default {
                     realtime: true,
                     calculable: true,
                     // color: ['red', 'orange', 'yellow', 'cyan', 'lightskyblue']
-                    color: ['red', 'orange', 'yellow', 'lightskyblue', 'white']
+                    color: ['red', 'orange', 'yellow', 'lightskyblue']
                 },
                 geo: { // 这个是重点配置区
                     map: 'china', // 表示中国地图
