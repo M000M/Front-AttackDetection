@@ -1,6 +1,6 @@
 <template>
-    <div class="echarts" style="height: 800px; width: 100%">
-        <div style="height:800px; width:100%" ref="chinaLocation" id="chinaLocation"></div>
+    <div class="echarts" style="height: 600px; width: 100%">
+        <div style="height:600px; width:100%" ref="chinaLocation" id="chinaLocation"></div>
     </div>
 </template>
 <script>
