@@ -95,7 +95,7 @@ export default {
                 return callback(new Error("容器内部端口不能为空！"));
             } else {
                 //var reg = /^\d{1,2,3,4,5}$/;
-                var reg = /^\d{1,2}$/;
+                var reg = /^\d{1,2,3,4,5}$/;
                 if (!reg.test(value)) {
                     return callback(new Error("端口只能是 2 ~ 5 位数字"));
                 } else {
@@ -142,14 +142,14 @@ export default {
                 publicPort: ""
             },
             images: [{
-                value: "cowrie/cowrie",
+                value: "cowrie/cowrie:latest",
                 label: "cowrie",
+            },{
+                value: "dtagdevsec/adbhoney:2006",
+                label: "adbhoney"
             },{
                 value: "honeynet/conpot",
                 label: "conpot"
-            },{
-                value: "honey",
-                label: "honey"
             },{
                 value: "elasticpot",
                 label: "elasticpot"
