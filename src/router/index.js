@@ -14,6 +14,7 @@ import RealTimeLogs from "@/components/logs/RealTimeLogs";
 import Expression from "@/components/regular/Expression";
 import AllResults from "../components/results/AllResults";
 import RealTimeResults from "../components/results/RealTimeResults";
+import DynamicDeployment from "@/components/containers/DynamicDeployment";
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,11 @@ const routes = [
         path: "/createContainer",
         component: CreateContainer,
         meta: {title: "创建容器"}
+    },
+    {
+        path: "/dynamicDeployment",
+        component: DynamicDeployment,
+        meta: {title: "动态化部署"}
     },
 
     {

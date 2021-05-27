@@ -31,6 +31,9 @@
                             <el-menu-item index="/createContainer">
                                 <span class="subSideFont">创建容器</span>
                             </el-menu-item>
+                            <el-menu-item index="/dynamicDeployment">
+                                <span class="subSideFont">动态化部署</span>
+                            </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="4">
