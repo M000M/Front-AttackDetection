@@ -47,6 +47,9 @@
                             <el-menu-item index="/allLogs">
                                 <span class="subSideFont">所有日志</span>
                             </el-menu-item>
+                            <el-menu-item index="/verificationLogs">
+                                <span class="subSideFont">防篡改验证</span>
+                            </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-menu-item index="/expression">

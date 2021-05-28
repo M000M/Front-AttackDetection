@@ -15,6 +15,7 @@ import Expression from "@/components/regular/Expression";
 import AllResults from "../components/results/AllResults";
 import RealTimeResults from "../components/results/RealTimeResults";
 import DynamicDeployment from "@/components/containers/DynamicDeployment";
+import VerificationLogs from "@/components/logs/VerificationLogs";
 
 Vue.use(VueRouter);
 
@@ -71,6 +72,11 @@ const routes = [
         path: "/allLogs",
         component: AllLogs,
         meta: {title: "所有日志"}
+    },
+    {
+        path: "/verificationLogs",
+        component: VerificationLogs,
+        meta: {title: "日志防篡改验证"}
     },
 
     {
