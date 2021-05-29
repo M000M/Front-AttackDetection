@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">日志防篡改验证</div>
+        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">防篡改验证</div>
 <!--        <div style="font-size: 25px; font-family: 'Times New Roman', cursive; margin-left: 40%">日志防篡改验证</div>-->
         <el-container>
             <el-main>
@@ -51,7 +51,7 @@
                     </el-row>
                     <br>
                     <el-row>
-                        <el-col :span="7" :offset="6">
+                        <el-col :span="20" :offset="1">
                             <el-form-item label="">
                                 <el-button type="primary" @click="verifyLog()">验证</el-button>
                                 <el-button style="margin-left: 30px" @click="resetForm()">重置</el-button>

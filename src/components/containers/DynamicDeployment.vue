@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>动态化部署</p>
+        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">动态化部署</div>
     </div>
 </template>
 
