@@ -1,7 +1,7 @@
 <template>
     <div>
-        <!--        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">日志防篡改验证</div>-->
-        <div style="font-size: 25px; font-family: 'Times New Roman', cursive; margin-left: 40%">日志防篡改验证</div>
+        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">日志防篡改验证</div>
+<!--        <div style="font-size: 25px; font-family: 'Times New Roman', cursive; margin-left: 40%">日志防篡改验证</div>-->
         <el-container>
             <el-main>
                 <el-form :model="verificationLogForm" label-width="200px" ref="verificationLog">
@@ -16,7 +16,7 @@
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="日志数据" prop="log">
-                                <el-input v-model="verificationLogForm.logData" placeholder="日志数据"></el-input>
+                                <el-input v-model="verificationLogForm.logData" placeholder="日志数据" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -24,7 +24,7 @@
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="日志数据Hash1" prop="log">
-                                <el-input v-model="verificationLogForm.logHash1" placeholder="日志数据Hash"></el-input>
+                                <el-input v-model="verificationLogForm.logHash1" placeholder="日志数据Hash1" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -32,7 +32,7 @@
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="日志数据Hash2" prop="log">
-                                <el-input v-model="verificationLogForm.logHash2" placeholder="日志数据Hash"></el-input>
+                                <el-input v-model="verificationLogForm.logHash2" placeholder="日志数据Hash2" :disabled="true"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -40,13 +40,18 @@
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="验证结果" prop="log">
-                                <el-input v-model="verificationLogForm.result" placeholder="日志数据Hash"></el-input>
+                                <div v-if="verificationLogForm.result===1">
+                                    <el-button type="success" icon="el-icon-check" circle></el-button>
+                                </div>
+                                <div v-if="verificationLogForm.result===2">
+                                    <el-button type="danger" icon="el-icon-close" circle></el-button>
+                                </div>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <br>
                     <el-row>
-                        <el-col :span="20" :offset="4">
+                        <el-col :span="7" :offset="6">
                             <el-form-item label="">
                                 <el-button type="primary" @click="verifyLog()">验证</el-button>
                                 <el-button style="margin-left: 30px" @click="resetForm()">重置</el-button>
@@ -72,7 +77,7 @@ export default {
                 logData: "",
                 logHash1: "",
                 logHash2: "",
-                result: ""
+                result: 0
             }
         }
     },
@@ -88,10 +93,7 @@ export default {
                 }
             }).then(res => {
                 this.verificationLogForm.logData = res.data.data;
-                this.verificationLogForm.logHash2 = sha256(this.verificationLogForm.logData);
             });
-
-            console.log(this.verificationLogForm.logHash2);
         },
         getLogHashById(id) {
             axios.get("http://127.0.0.1:7000/verification/getLogHashById", {
@@ -100,17 +102,27 @@ export default {
                 }
             }).then(res => {
                 this.verificationLogForm.logHash1 = res.data.data;
-            });
-        },
-        verify() {
-            axios.post("http://127.0.0.1:7000/verification/verify", this.verificationLogForm).then(res => {
-                this.verificationLogForm.logHash2 = res.data.data;
+                //this.verificationLogForm.logHash2 = sha256(this.verificationLogForm.logData);
+                if (this.verificationLogForm.logData !== null) {
+                    this.verificationLogForm.logHash2 = sha256(this.verificationLogForm.logData);
+                } else {
+                    this.verificationLogForm.logHash2 = "";
+                }
+                if (this.verificationLogForm.logHash1 === this.verificationLogForm.logHash2) {
+                    this.verificationLogForm.result = 1;
+                } else {
+                    this.verificationLogForm.result = 2;
+                }
+                console.log("hash1: " + this.verificationLogForm.logHash1);
+                console.log("hash2: " + this.verificationLogForm.logHash2);
             });
         },
         resetForm() {
             this.verificationLogForm.logId = "";
             this.verificationLogForm.logData = "";
-            this.verificationLogForm.logHash = "";
+            this.verificationLogForm.logHash1 = "";
+            this.verificationLogForm.logHash2 = "";
+            this.verificationLogForm.result = 0;
         }
     }
 }
