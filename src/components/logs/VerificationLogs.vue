@@ -1,31 +1,55 @@
 <template>
     <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">日志防篡改验证</div>
+        <!--        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">日志防篡改验证</div>-->
+        <div style="font-size: 25px; font-family: 'Times New Roman', cursive; margin-left: 40%">日志防篡改验证</div>
         <el-container>
             <el-main>
-                <el-form :model="verificationLog" label-width="200px" ref="verificationLog">
+                <el-form :model="verificationLogForm" label-width="200px" ref="verificationLog">
                     <el-row>
                         <el-col :span="8" :offset="1">
                             <el-form-item label="日志数据编号" prop="logId">
-                                <el-input v-model="verificationLog.logId" placeholder="请输入日志数据编号"></el-input>
+                                <el-input v-model="verificationLogForm.logId" placeholder="请输入日志数据编号"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <br>
-
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="日志数据" prop="log">
-                                <el-input v-model="verificationLog.logData" placeholder="日志数据"></el-input>
+                                <el-input v-model="verificationLogForm.logData" placeholder="日志数据"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <br>
-
                     <el-row>
                         <el-col :span="20" :offset="1">
-                            <el-form-item label="日志数据Hash" prop="log">
-                                <el-input v-model="verificationLog.logHash" placeholder="日志数据Hash"></el-input>
+                            <el-form-item label="日志数据Hash1" prop="log">
+                                <el-input v-model="verificationLogForm.logHash1" placeholder="日志数据Hash"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <br>
+                    <el-row>
+                        <el-col :span="20" :offset="1">
+                            <el-form-item label="日志数据Hash2" prop="log">
+                                <el-input v-model="verificationLogForm.logHash2" placeholder="日志数据Hash"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <br>
+                    <el-row>
+                        <el-col :span="20" :offset="1">
+                            <el-form-item label="验证结果" prop="log">
+                                <el-input v-model="verificationLogForm.result" placeholder="日志数据Hash"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <br>
+                    <el-row>
+                        <el-col :span="20" :offset="4">
+                            <el-form-item label="">
+                                <el-button type="primary" @click="verifyLog()">验证</el-button>
+                                <el-button style="margin-left: 30px" @click="resetForm()">重置</el-button>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -36,15 +60,57 @@
 </template>
 
 <script>
+import axios from "axios";
+import { sha256 } from 'js-sha256';
+
 export default {
     name: "VerificationLogs",
     data() {
         return {
-            verificationLog: {
+            verificationLogForm: {
                 logId: "",
                 logData: "",
-                logHash: ""
+                logHash1: "",
+                logHash2: "",
+                result: ""
             }
+        }
+    },
+    methods: {
+        verifyLog() {
+            this.getLogById(this.verificationLogForm.logId);
+            this.getLogHashById(this.verificationLogForm.logId);
+        },
+        getLogById(id) {
+            axios.get("http://127.0.0.1:7000/verification/getLogById", {
+                params: {
+                    id: id
+                }
+            }).then(res => {
+                this.verificationLogForm.logData = res.data.data;
+                this.verificationLogForm.logHash2 = sha256(this.verificationLogForm.logData);
+            });
+
+            console.log(this.verificationLogForm.logHash2);
+        },
+        getLogHashById(id) {
+            axios.get("http://127.0.0.1:7000/verification/getLogHashById", {
+                params: {
+                    id: id
+                }
+            }).then(res => {
+                this.verificationLogForm.logHash1 = res.data.data;
+            });
+        },
+        verify() {
+            axios.post("http://127.0.0.1:7000/verification/verify", this.verificationLogForm).then(res => {
+                this.verificationLogForm.logHash2 = res.data.data;
+            });
+        },
+        resetForm() {
+            this.verificationLogForm.logId = "";
+            this.verificationLogForm.logData = "";
+            this.verificationLogForm.logHash = "";
         }
     }
 }
