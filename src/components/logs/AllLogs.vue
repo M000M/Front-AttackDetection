@@ -7,8 +7,15 @@
             :header-cell-style="{'text-align':'center'}"
             :cell-style="{'text-align':'left'}"
             :max-height="900">
-            <el-table-column label="时间" prop="time" width="150px"></el-table-column>
-            <el-table-column label="日志" prop="log"></el-table-column>
+            <el-table-column
+                label="编号"
+                width="150px"
+                prop="id">
+                <template slot-scope="scope">
+                    <span style="display: block;text-align: center;" >{{scope.row.id}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="日志" prop="message"></el-table-column>
         </el-table>
         <br>
         <div class="tabListPage">
@@ -52,13 +59,13 @@ export default {
         },
 
         getTotal() {
-            axios.get("http://127.0.0.1:9000/es/getTotal").then(res => {
+            axios.get("http://127.0.0.1:7000/logs/getTotal").then(res => {
                 this.total = res.data.data;
             });
         },
 
         getLogByPage(start, size) {
-            axios.get("http://127.0.0.1:9000/es/getLogByPage", {
+            axios.get("http://127.0.0.1:7000/logs/getLogsByPage", {
                 params: {
                     start: start,
                     size: size
