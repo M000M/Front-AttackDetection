@@ -16,7 +16,7 @@
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="日志数据" prop="log">
-                                <el-input v-model="verificationLogForm.logData" placeholder="日志数据" :disabled="true"></el-input>
+                                <el-input v-model="verificationLogForm.logData" placeholder="日志数据" :disabled="false"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -24,7 +24,7 @@
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="日志数据Hash1" prop="log">
-                                <el-input v-model="verificationLogForm.logHash1" placeholder="日志数据Hash1" :disabled="true"></el-input>
+                                <el-input v-model="verificationLogForm.logHash1" placeholder="日志数据Hash1" :disabled="false"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -32,7 +32,7 @@
                     <el-row>
                         <el-col :span="20" :offset="1">
                             <el-form-item label="日志数据Hash2" prop="log">
-                                <el-input v-model="verificationLogForm.logHash2" placeholder="日志数据Hash2" :disabled="true"></el-input>
+                                <el-input v-model="verificationLogForm.logHash2" placeholder="日志数据Hash2" :disabled="false"></el-input>
                             </el-form-item>
                         </el-col>
                     </el-row>

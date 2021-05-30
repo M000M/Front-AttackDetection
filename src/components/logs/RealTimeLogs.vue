@@ -31,7 +31,7 @@ export default {
             logData: [],
             total: 0,
             newTotal: 0,
-            logCount: 15
+            logCount: 12
         }
     },
 

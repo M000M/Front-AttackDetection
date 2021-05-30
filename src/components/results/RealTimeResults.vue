@@ -39,7 +39,7 @@ export default {
             resultData: [],
             total: 0,
             newTotal: 0,
-            resultCount: 10
+            resultCount: 12
         }
     },
 
