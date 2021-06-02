@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">动态化部署</div>
-        <br>
+        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">检测状况监测</div>
         <el-form :model="dynamicDeploymentForm" ref="verificationLog">
             <el-row>
                 <el-col>
-                    <el-form-item label="是否开启动态化部署" prop="isDynamicSwitchOn">
+                    <el-form-item label="是否开启检测状况监测" prop="isDynamicSwitchOn">
                         <el-switch
                             v-model="isDynamicSwitchOn"
                             active-color="#2E9AFE"
@@ -36,6 +35,8 @@
 
             <el-table-column label="受到的攻击次数" prop="attackCount"></el-table-column>
 
+            <el-table-column label="攻击次数/沙盒数量比" prop="rate"></el-table-column>
+
             <el-table-column label="攻击/数量设定">
                 <template slot-scope="scope">
                     <el-row>
@@ -63,6 +64,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: "DynamicDeployment",
     data() {
@@ -72,38 +74,43 @@ export default {
             tableData: [
                 {
                     image: "cowrie",
-                    count: 1,
+                    count: 0,
                     attackCount: 10,
                     minRate: 10,
-                    maxRate: 20
+                    maxRate: 20,
+                    rate: 18
                 },
                 {
                     image: "conpot",
-                    count: 1,
+                    count: 0,
                     attackCount: 10,
                     minRate: 10,
-                    maxRate: 20
+                    maxRate: 20,
+                    rate: 18
                 },
                 {
                     image: "adbhoney",
-                    count: 1,
+                    count: 0,
                     attackCount: 10,
                     minRate: 10,
-                    maxRate: 20
+                    maxRate: 20,
+                    rate: 19
                 },
                 {
                     image: "honeytrap",
-                    count: 1,
+                    count: 0,
                     attackCount: 10,
                     minRate: 10,
-                    maxRate: 20
+                    maxRate: 20,
+                    rate: 19
                 },
                 {
                     image: "citrixhoneypot",
-                    count: 1,
+                    count: 0,
                     attackCount: 10,
                     minRate: 10,
-                    maxRate: 20
+                    maxRate: 20,
+                    rate: 19
                 }
             ]
         }
@@ -115,7 +122,32 @@ export default {
         handleSet(index, row) {
             console.log(index);
             console.log(row);
+        },
+        getRunningContainerCountByImageName(index, imageName) {
+            axios.get("http://127.0.0.1:9000/dynamic/getCountByImageName", {
+                params: {
+                    imageName: imageName
+                }
+            }).then(res => {
+                this.tableData[index].count = res.data.data;
+            });
+        },
+        intervalFetchData: function () {
+            setInterval(() => {
+                this.getRunningContainerCountByImageName(0, "cowrie/cowrie");
+                this.getRunningContainerCountByImageName(1, "conpot:latest");
+                this.getRunningContainerCountByImageName(2, "adbhoney:latest");
+                this.getRunningContainerCountByImageName(3, "honeytrap/honeytrap:latest");
+                this.getRunningContainerCountByImageName(4, "citrixhoneypot:latest");
+            }, 3000);
         }
+    },
+
+    mounted() {
+        this.intervalFetchData();
+    },
+
+    created() {
     }
 }
 </script>

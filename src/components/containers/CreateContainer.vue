@@ -120,7 +120,7 @@ export default {
                         console.log(this.allContainers[i].publicPort);
                         if (Number(value) === this.allContainers[i].publicPort) {
                             // return callback(new Error("该端口已经被容器 " + this.allContainers[i].name + " 占用，请更换！"));
-                            alert("\"该端口已经被容器 \" + this.allContainers[i].name + \" 占用，请更换！\"");
+                            alert("该端口已经被容器" + this.allContainers[i].name + " 占用，请更换！");
                         }
                     }
                     if (value < 1000) {
@@ -145,20 +145,17 @@ export default {
                 value: "cowrie/cowrie:latest",
                 label: "cowrie",
             },{
-                value: "dtagdevsec/adbhoney:2006",
-                label: "adbhoney"
-            },{
-                value: "honeynet/conpot",
+                value: "conpot:latest",
                 label: "conpot"
             },{
-                value: "elasticpot",
-                label: "elasticpot"
+                value: "adbhoney:latest",
+                label: "adbhoney"
             },{
-                value: "nginx",
-                label: "nginx"
+                value: "honeytrap/honeytrap:latest",
+                label: "honeytrap"
             },{
-                value: "glastopf",
-                label: "glastopf"
+                value: "citrixhoneypot:latest",
+                label: "citrixhoneypot"
             }],
             formLabelWidth: '200px',
             dialogVisible: false,

@@ -113,8 +113,6 @@ export default {
                 } else {
                     this.verificationLogForm.result = 2;
                 }
-                console.log("hash1: " + this.verificationLogForm.logHash1);
-                console.log("hash2: " + this.verificationLogForm.logHash2);
             });
         },
         resetForm() {

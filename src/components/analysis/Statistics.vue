@@ -46,12 +46,10 @@ export default {
     },
     methods: {
         drawLine() {
-            console.log(this.dates);
-            console.log(this.data);
             this.chartColumn = echarts.init(document.getElementById('chartColumn'));
 
             this.chartColumn.setOption({
-                title: {text: 'Column Chart'},
+                title: {text: '攻击数量 (次)'},
                 tooltip: {},
                 xAxis: {
                     type: 'category',

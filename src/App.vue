@@ -32,7 +32,7 @@
                                 <span class="subSideFont">创建容器</span>
                             </el-menu-item>
                             <el-menu-item index="/dynamicDeployment">
-                                <span class="subSideFont">动态化部署</span>
+                                <span class="subSideFont">检测状况检测</span>
                             </el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
