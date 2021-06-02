@@ -95,7 +95,7 @@ export default {
                 return callback(new Error("容器内部端口不能为空！"));
             } else {
                 //var reg = /^\d{1,2,3,4,5}$/;
-                var reg = /^\d{1,2,3,4,5}$/;
+                const reg = /^\d{2,5}$/;
                 if (!reg.test(value)) {
                     return callback(new Error("端口只能是 2 ~ 5 位数字"));
                 } else {
@@ -111,9 +111,9 @@ export default {
             if (!value) {
                 return callback(new Error("容器映射端口不能为空！"));
             } else {
-                var reg = /^\d{4,5}$/;
+                const reg = /^\d{2,5}$/;
                 if (!reg.test(value)) {
-                    return callback(new Error("端口只能是 4/5 位数字"));
+                    return callback(new Error("端口只能是 2 ~ 5 位数字"));
                 } else {
                     for (var i = 0; i < this.allContainers.length; i++) {
                         console.log(value);

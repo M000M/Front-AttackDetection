@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">检测状况监测</div>
+        <div style="font-size: 25px; font-family: '宋体', cursive; margin-left: 40%">动态化部署</div>
         <el-form :model="dynamicDeploymentForm" ref="verificationLog">
             <el-row>
                 <el-col>
@@ -33,32 +33,47 @@
 
             <el-table-column label="容器数量" prop="count"></el-table-column>
 
-            <el-table-column label="受到的攻击次数" prop="attackCount"></el-table-column>
+            <el-table-column label="最近所受攻击次数" prop="attackCount"></el-table-column>
 
             <el-table-column label="攻击次数/沙盒数量比" prop="rate"></el-table-column>
 
-            <el-table-column label="攻击/数量设定">
+            <el-table-column label="攻击次数/沙盒数量比上限">
                 <template slot-scope="scope">
-                    <el-row>
-                        <el-col :span="9" :offset="1">
-                            <el-input placeholder="最小值" style="width: 80px;" :value="scope.row.minRate"></el-input>
+                    <el-row type="flex" justify="center">
+                        <el-col :span="9" :offset="2">
+                            <el-input placeholder="比值上限" style="width: 120px;" :value="scope.row.maxRate"></el-input>
                         </el-col>
-                        <el-col :span="9" :offset="3">
-                            <el-input placeholder="最大值" style="width: 80px" :value="scope.row.maxRate"></el-input>
+                        <el-col :span="8" :offset="4">
+                            <el-button
+                                type="info"
+                                size="medium"
+                                circle
+                                @click="handleSet(scope.$index, scope.row)">设置
+                            </el-button>
                         </el-col>
                     </el-row>
                 </template>
             </el-table-column>
+<!--                <template slot-scope="scope">-->
+<!--                    <el-row>-->
+<!--                        <el-col :span="9" :offset="1">-->
+<!--                            <el-input placeholder="最小值" style="width: 80px;" :value="scope.row.minRate"></el-input>-->
+<!--                        </el-col>-->
+<!--                        <el-col :span="9" :offset="3">-->
+<!--                            <el-input placeholder="最大值" style="width: 80px" :value="scope.row.maxRate"></el-input>-->
+<!--                        </el-col>-->
+<!--                    </el-row>-->
+<!--                </template>-->
 
-            <el-table-column label="操作">
-                <template slot-scope="scope">
-                    <el-button
-                        type="info"
-                        circle
-                        @click="handleSet(scope.$index, scope.row)">设置
-                    </el-button>
-                </template>
-            </el-table-column>
+<!--            <el-table-column label="操作">-->
+<!--                <template slot-scope="scope">-->
+<!--                    <el-button-->
+<!--                        type="info"-->
+<!--                        circle-->
+<!--                        @click="handleSet(scope.$index, scope.row)">设置-->
+<!--                    </el-button>-->
+<!--                </template>-->
+<!--            </el-table-column>-->
         </el-table>
     </div>
 </template>
@@ -77,40 +92,40 @@ export default {
                     count: 0,
                     attackCount: 0,
                     minRate: 10,
-                    maxRate: 20,
-                    rate: 18
+                    maxRate: 100,
+                    rate: 0
                 },
                 {
                     image: "conpot",
                     count: 0,
                     attackCount: 0,
                     minRate: 10,
-                    maxRate: 20,
-                    rate: 18
+                    maxRate: 100,
+                    rate: 0
                 },
                 {
                     image: "adbhoney",
                     count: 0,
                     attackCount: 0,
                     minRate: 10,
-                    maxRate: 20,
-                    rate: 19
+                    maxRate: 100,
+                    rate: 0
                 },
                 {
                     image: "honeytrap",
                     count: 0,
                     attackCount: 0,
                     minRate: 10,
-                    maxRate: 20,
-                    rate: 19
+                    maxRate: 100,
+                    rate: 0
                 },
                 {
                     image: "citrixhoneypot",
                     count: 0,
                     attackCount: 0,
                     minRate: 10,
-                    maxRate: 20,
-                    rate: 19
+                    maxRate: 100,
+                    rate: 0
                 }
             ]
         }
@@ -143,17 +158,34 @@ export default {
         },
         intervalFetchData: function () {
             setInterval(() => {
-                this.getRunningContainerCountByImageName(0, "cowrie/cowrie");
-                this.getRunningContainerCountByImageName(1, "conpot:latest");
-                this.getRunningContainerCountByImageName(2, "adbhoney:latest");
-                this.getRunningContainerCountByImageName(3, "honeytrap/honeytrap:latest");
-                this.getRunningContainerCountByImageName(4, "citrixhoneypot:latest");
+                if (this.isDynamicSwitchOn) {
+                    this.getRunningContainerCountByImageName(0, "cowrie/cowrie:latest");
+                    this.getRunningContainerCountByImageName(1, "conpot:latest");
+                    this.getRunningContainerCountByImageName(2, "adbhoney:latest");
+                    this.getRunningContainerCountByImageName(3, "honeytrap/honeytrap:latest");
+                    this.getRunningContainerCountByImageName(4, "citrixhoneypot:latest");
 
-                this.getRecentAttackByImageName(0, "cowrie");
-                this.getRecentAttackByImageName(1, "conpot");
-                this.getRecentAttackByImageName(2, "adbhoney");
-                this.getRecentAttackByImageName(3, "citrixhoneypot");
-                this.getRecentAttackByImageName(4, "honeytrap");
+                    this.getRecentAttackByImageName(0, "cowrie");
+                    this.getRecentAttackByImageName(1, "conpot");
+                    this.getRecentAttackByImageName(2, "adbhoney");
+                    this.getRecentAttackByImageName(3, "honeytrap");
+                    this.getRecentAttackByImageName(4, "citrixhoneypot");
+
+
+                    for (let index = 0; index <= 4; index++) {
+                        let attackCount = this.tableData[index].attackCount;
+                        let sandBoxCount = this.tableData[index].count;
+                        if (sandBoxCount !== 0) {
+                            this.tableData[index].rate = Math.round(attackCount / sandBoxCount);
+                        } else {
+                            this.tableData[index].rate = 0;
+                        }
+                    }
+                } else {
+                    for (let index = 0; index <= 4; index++) {
+                        this.tableData[index].attackCount = 0;
+                    }
+                }
             }, 3000);
         }
     },
