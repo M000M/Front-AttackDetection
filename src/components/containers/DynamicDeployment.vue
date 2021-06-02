@@ -75,7 +75,7 @@ export default {
                 {
                     image: "cowrie",
                     count: 0,
-                    attackCount: 10,
+                    attackCount: 0,
                     minRate: 10,
                     maxRate: 20,
                     rate: 18
@@ -83,7 +83,7 @@ export default {
                 {
                     image: "conpot",
                     count: 0,
-                    attackCount: 10,
+                    attackCount: 0,
                     minRate: 10,
                     maxRate: 20,
                     rate: 18
@@ -91,7 +91,7 @@ export default {
                 {
                     image: "adbhoney",
                     count: 0,
-                    attackCount: 10,
+                    attackCount: 0,
                     minRate: 10,
                     maxRate: 20,
                     rate: 19
@@ -99,7 +99,7 @@ export default {
                 {
                     image: "honeytrap",
                     count: 0,
-                    attackCount: 10,
+                    attackCount: 0,
                     minRate: 10,
                     maxRate: 20,
                     rate: 19
@@ -107,7 +107,7 @@ export default {
                 {
                     image: "citrixhoneypot",
                     count: 0,
-                    attackCount: 10,
+                    attackCount: 0,
                     minRate: 10,
                     maxRate: 20,
                     rate: 19
@@ -132,6 +132,15 @@ export default {
                 this.tableData[index].count = res.data.data;
             });
         },
+        getRecentAttackByImageName(index, key) {
+            axios.get("http://127.0.0.1:9000/dynamic/getRecentAttackCount", {
+                params: {
+                    key: key
+                }
+            }).then(res => {
+                this.tableData[index].attackCount = res.data.data;
+            });
+        },
         intervalFetchData: function () {
             setInterval(() => {
                 this.getRunningContainerCountByImageName(0, "cowrie/cowrie");
@@ -139,6 +148,12 @@ export default {
                 this.getRunningContainerCountByImageName(2, "adbhoney:latest");
                 this.getRunningContainerCountByImageName(3, "honeytrap/honeytrap:latest");
                 this.getRunningContainerCountByImageName(4, "citrixhoneypot:latest");
+
+                this.getRecentAttackByImageName(0, "cowrie");
+                this.getRecentAttackByImageName(1, "conpot");
+                this.getRecentAttackByImageName(2, "adbhoney");
+                this.getRecentAttackByImageName(3, "citrixhoneypot");
+                this.getRecentAttackByImageName(4, "honeytrap");
             }, 3000);
         }
     },
