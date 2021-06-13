@@ -171,7 +171,6 @@ export default {
                     this.getRecentAttackByImageName(3, "honeytrap");
                     this.getRecentAttackByImageName(4, "citrixhoneypot");
 
-
                     for (let index = 0; index <= 4; index++) {
                         let attackCount = this.tableData[index].attackCount;
                         let sandBoxCount = this.tableData[index].count;
