@@ -39,9 +39,6 @@
             <el-table-column label="创建时间" prop="createTime"></el-table-column>
 
             <el-table-column label="操作">
-                <template slot="header" slot-scope="{}">
-                    <el-input v-model="search" placeholder="请输入关键字搜索"/>
-                </template>
                 <template slot-scope="scope">
                     <span v-if="scope.row.state==='Exited'">
                         <el-button
@@ -105,10 +102,18 @@ export default {
                 }
                 this.findAllTableData();
             });
+        },
+        intervalFetchData:function () {
+            setInterval(() => {
+                this.findAllTableData();
+            }, 5000);
         }
     },
     created() {
         this.findAllTableData();
+    },
+    mounted() {
+        this.intervalFetchData();
     }
 }
 </script>

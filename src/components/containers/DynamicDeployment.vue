@@ -41,7 +41,7 @@
                 <template slot-scope="scope">
                     <el-row type="flex" justify="center">
                         <el-col :span="9" :offset="2">
-                            <el-input placeholder="比值上限" style="width: 120px;" :value="scope.row.maxRate"></el-input>
+                            <el-input placeholder="比值上限" style="width: 120px;" v-model="scope.row.maxRate"></el-input>
                         </el-col>
                         <el-col :span="8" :offset="4">
                             <el-button
@@ -91,41 +91,31 @@ export default {
                     image: "cowrie",
                     count: 0,
                     attackCount: 0,
-                    minRate: 10,
                     maxRate: 100,
-                    rate: 0
                 },
                 {
                     image: "conpot",
                     count: 0,
                     attackCount: 0,
-                    minRate: 10,
                     maxRate: 100,
-                    rate: 0
                 },
                 {
                     image: "adbhoney",
                     count: 0,
                     attackCount: 0,
-                    minRate: 10,
                     maxRate: 100,
-                    rate: 0
                 },
                 {
                     image: "honeytrap",
                     count: 0,
                     attackCount: 0,
-                    minRate: 10,
                     maxRate: 100,
-                    rate: 0
                 },
                 {
                     image: "citrixhoneypot",
                     count: 0,
                     attackCount: 0,
-                    minRate: 10,
                     maxRate: 100,
-                    rate: 0
                 }
             ]
         }
@@ -135,8 +125,21 @@ export default {
             console.log(this.isDynamicSwitchOn);
         },
         handleSet(index, row) {
-            console.log(index);
-            console.log(row);
+            axios.get("http://127.0.0.1:9000/dynamic/setAttackCountRateByType", {
+                params: {
+                    type: row.image,
+                    maxRate: row.maxRate
+                }
+            }).then(res => {
+                if (res.data && res.data.data) {
+                    this.$message({
+                        message: res.data.msg,
+                        type: 'success'
+                    });
+                } else {
+                    this.$message.error(res.data.msg);
+                }
+            })
         },
         getRunningContainerCountByImageName(index, imageName) {
             axios.get("http://127.0.0.1:9000/dynamic/getCountByImageName", {
@@ -185,7 +188,7 @@ export default {
                         this.tableData[index].attackCount = 0;
                     }
                 }
-            }, 3000);
+            }, 10000);
         }
     },
 
