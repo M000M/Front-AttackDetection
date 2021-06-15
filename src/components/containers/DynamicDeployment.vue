@@ -41,7 +41,7 @@
                 <template slot-scope="scope">
                     <el-row type="flex" justify="center">
                         <el-col :span="9" :offset="2">
-                            <el-input placeholder="比值上限" style="width: 120px;" v-model="scope.row.maxRate"></el-input>
+                            <el-input placeholder="比值上限" style="width: 80px;" v-model="scope.row.maxRate"></el-input>
                         </el-col>
                         <el-col :span="8" :offset="4">
                             <el-button
